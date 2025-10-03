@@ -1,0 +1,8 @@
+CV project/
+│── app.py
+│── /templates/
+│     └── index.html
+│── /static/
+│     └── uploads/     # uploaded + annotated images
+│── vgg_unfrozen.h5    # the trained classiffication weights
+│── pneumonia_detection_model.h5  
