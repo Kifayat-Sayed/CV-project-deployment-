@@ -40,7 +40,7 @@ def load_classification_model():
         output = Dense(3, activation='softmax')(fc2)
 
         model = Model(base_model.inputs, output)
-        model.load_weights('vgg_unfrozen.h5')  # TODO: update with your final model file
+        model.load_weights('vgg_unfrozen.h5')  # CHANGES : Update with OUR final model file
         print(" Classification model loaded succesdssfully")
         return model
     except Exception as e:
@@ -132,7 +132,7 @@ def detect_pneumonia_region(img_path, predicted_class):
         if image is None:
             return None
 
-        # TODO: Replace this with RCNN inference once implemented
+        # CHANHGES REQ : Replace this with RCNN inference once implemented
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, thresh = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY_INV)
         kernel = np.ones((5, 5), np.uint8)
@@ -146,7 +146,7 @@ def detect_pneumonia_region(img_path, predicted_class):
         largest_contour = max(contours, key=cv2.contourArea)
         x, y, w, h = cv2.boundingRect(largest_contour)
 
-        if w * h < 1000:  # ignore small regions
+        if w * h < 1000:  # iggnore small regions
             return None
 
         output_image = image.copy()
