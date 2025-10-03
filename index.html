@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pneumonia Detection System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 40px; }
+    .container { max-width: 700px; margin: auto; }
+    .error { color: red; font-weight: bold; }
+    img { max-width: 300px; margin: 10px; border: 2px solid #ddd; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pneumonia Detection from Chest X-Ray</h1>
+
+    <!-- Upload form -->
+    <form method="POST" action="/predict" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".jpg,.jpeg,.png,.dcm" required>
+      <button type="submit">Upload & Predict</button>
+    </form>
+
+    <!-- Error Display -->
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <!-- Prediction Result -->
+    {% if prediction %}
+      <h2>Prediction: {{ prediction }}</h2>
+      <h3>Confidence: {{ confidence }}%</h3>
+
+      <div>
+        <h3>Uploaded Image:</h3>
+        <img src="{{ original_image }}" alt="Uploaded Image">
+
+        {% if annotated_image %}
+          <h3>Detected Pneumonia Region:</h3>
+          <img src="{{ annotated_image }}" alt="Annotated Image">
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
