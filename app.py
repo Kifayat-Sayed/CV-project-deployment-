@@ -48,10 +48,6 @@ def load_classification_model():
         return None
 
 def load_detection_model():
-    """
-    Load trained detection model (future step).
-    For now, if no detection model exists, return None.
-    """
     try:
         detection_model = load_model('pneumonia_detection_model.h5')
         print(" Detection model loaded successfully")
@@ -121,7 +117,7 @@ def predict_classification(img_path):
 def detect_pneumonia_region(img_path, predicted_class):
     """
     Detect pneumonia region:
-      - If ddetection model exists → use it.
+      - If ddetection model exists → so to use it.
       - Else fallback then to contour-based method.
     """
     try:
@@ -132,7 +128,7 @@ def detect_pneumonia_region(img_path, predicted_class):
         if image is None:
             return None
 
-        # CHANHGES REQ : Replace this with RCNN inference once implemented
+        # CHANHGES REQ : Replace this with our  RCNN inference once implemented
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, thresh = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY_INV)
         kernel = np.ones((5, 5), np.uint8)
@@ -186,7 +182,7 @@ def predict():
                                prediction=None)
 
     try:
-        # Unique filename to avoid overwrite
+        # filename to avoid overwrite
         filename = f"{uuid.uuid4().hex}_{secure_filename(file.filename)}"
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
